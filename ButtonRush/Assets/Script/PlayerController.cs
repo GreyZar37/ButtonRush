@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
 
     public Transform playerCamera;
     public Transform groundCheck;
+
+    public GameObject gunAndArm;
     
     public LayerMask groundMask;
 
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        //Kodedelen hvor spilleren får lov til at rotere sit camera 
+        //Kodedelen hvor spilleren får lov til at rotere sit camera (Rotation)
         mouseHorizontal = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
         mouseVertical = Input.GetAxis("Mouse Y") * mouseSens * Time.deltaTime;
 
@@ -52,10 +54,13 @@ public class PlayerController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        gunAndArm.GetComponent<Transform>().localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
         transform.Rotate(Vector3.up * mouseHorizontal);
 
+        
 
-        //Kodedelen hvor spilleren får lov til at gå
+        //Kodedelen hvor spilleren får lov til at gå (Movement)
         vertical = Input.GetAxis("Vertical");
         horizontal = Input.GetAxis("Horizontal");
 
