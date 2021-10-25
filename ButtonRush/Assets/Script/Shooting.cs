@@ -5,7 +5,6 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     Animator anim;
-    float cooldown;
     float range = 100f;
 
     public ParticleSystem particle;
@@ -20,9 +19,7 @@ public class Shooting : MonoBehaviour
    
     void Update()
     {
-        cooldown -= Time.deltaTime;
-        if(cooldown <= 0)
-        {
+        
             if (Input.GetMouseButtonDown(0))
             {
                 RaycastHit hit;
@@ -33,16 +30,15 @@ public class Shooting : MonoBehaviour
 
                 anim.SetBool("IsShooting", true);
                 particle.Play();
-                cooldown += 0.25f;
+              
                 
             }
-           
-        }    
+        
+        if ((anim.GetCurrentAnimatorStateInfo(0).IsName("ShootingAnim") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1))
+        {
+            anim.SetBool("IsShooting", false);
+        }
     }
 
-    public void shooting()
-    {
-        anim.SetBool("IsShooting", false);
-
-    }
+    
 }
