@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-  
     public CharacterController characterController;
 
     public Transform playerCamera;
     public Transform groundCheck;
 
     public GameObject gunAndArm;
-    
+
     public LayerMask groundMask;
 
 
@@ -25,10 +24,10 @@ public class PlayerController : MonoBehaviour
     float vertical, mouseVertical;
     float horizontal, mouseHorizontal;
     float xRotation = 0f;
-    
+
     Vector3 move;
     Vector3 velocity;
-   
+
     bool isGrounded;
 
 
@@ -58,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
         transform.Rotate(Vector3.up * mouseHorizontal);
 
-        
+
 
         //Kodedelen hvor spilleren får lov til at gå (Movement)
         vertical = Input.GetAxis("Vertical");
@@ -82,6 +81,5 @@ public class PlayerController : MonoBehaviour
             print("jump");
         }
 
-    
     }
 }

@@ -9,11 +9,14 @@ public class Shooting : MonoBehaviour
 
     public ParticleSystem particle;
 
+    public AudioSource audioSource;
+
     public Camera cam;
 
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
     }
 
    
@@ -25,11 +28,14 @@ public class Shooting : MonoBehaviour
                 RaycastHit hit;
                 if(Physics.Raycast(cam.transform.position,cam.transform.forward, out hit, range))
                 {
-                    hit.transform.GetComponent<MeshRenderer>().material.color = Color.green;
+                if(hit.transform.gameObject.GetComponent<ScoreToGive>() != null)
+                hit.transform.gameObject.GetComponent<ScoreToGive>().wasHit = true;
                 }
-
-                anim.SetBool("IsShooting", true);
-                particle.Play();
+            anim.SetBool("IsShooting", true);
+            particle.Play();
+            audioSource.Play();
+                
+              
               
                 
             }
