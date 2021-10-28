@@ -6,6 +6,7 @@ public class Shooting : MonoBehaviour
 {
     Animator anim;
     float range = 100f;
+    int layerMask = 7;
 
     public ParticleSystem particle;
 
@@ -26,7 +27,7 @@ public class Shooting : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 RaycastHit hit;
-                if(Physics.Raycast(cam.transform.position,cam.transform.forward, out hit, range))
+                if(Physics.Raycast(cam.transform.position,cam.transform.forward, out hit, range, layerMask))
                 {
                 if(hit.transform.gameObject.GetComponent<ScoreToGive>() != null)
                 hit.transform.gameObject.GetComponent<ScoreToGive>().wasHit = true;

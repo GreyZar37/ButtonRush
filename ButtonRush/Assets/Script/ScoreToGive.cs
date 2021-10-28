@@ -40,11 +40,12 @@ public class ScoreToGive : MonoBehaviour
             {
                 particle.Play();
                 audioSource.Play();
+                scoreText.addScore(scoreToAdd);
                 wasPlayed = true;
 
             }
             timer -= Time.deltaTime;
-            scoreText.addScore(scoreToAdd);
+            
            
 
             if (timer <= 0.4f)
