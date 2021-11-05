@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public CharacterController characterController;
 
     public Transform playerCamera;
     public Transform groundCheck;
@@ -12,12 +11,11 @@ public class PlayerController : MonoBehaviour
     public GameObject gunAndArm;
 
     public LayerMask groundMask;
-
+    public Rigidbody rb;
 
     public float speed = 1f;
     public float mouseSens = 100f;
 
-    public float gravity = -9.82f;
     public float groundDistance = 0.3f;
     public float jumpHeight;
 
@@ -25,8 +23,7 @@ public class PlayerController : MonoBehaviour
     float horizontal, mouseHorizontal;
     float xRotation = 0f;
 
-    Vector3 move;
-    Vector3 velocity;
+    bool jumped;
 
     bool isGrounded;
 
@@ -34,6 +31,16 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Physics.gravity = new Vector3(0, -24.82F, 0);
+    }
+    private void Update()
+    {
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            jumped = true;
+        }
+
+      
     }
 
     private void FixedUpdate()
@@ -60,26 +67,22 @@ public class PlayerController : MonoBehaviour
 
 
         //Kodedelen hvor spilleren får lov til at gå (Movement)
-        vertical = Input.GetAxis("Vertical");
-        horizontal = Input.GetAxis("Horizontal");
+        vertical = Input.GetAxisRaw("Vertical");
+        horizontal = Input.GetAxisRaw("Horizontal");
+        
 
-        move = transform.right * horizontal + transform.forward * vertical;
+        rb.AddForce(transform.right * horizontal * speed);
+        rb.AddForce(transform.forward * vertical * speed);
 
-        characterController.Move(move * speed * Time.deltaTime);
+        
+      
 
-        velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
-
-        if (isGrounded && velocity.y < 0)
+        if ( jumped)
         {
-            velocity.y = -2f;
+            jumped = false;
+            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
         }
-
-        if (Input.GetButton("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            print("jump");
-        }
+       
 
     }
 }
