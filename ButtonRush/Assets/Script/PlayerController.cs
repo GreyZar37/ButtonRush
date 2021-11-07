@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rb;
 
     public float speed = 1f;
-    public float mouseSens = 100f;
+    public static int mouseSens = 100;
 
     public float groundDistance = 0.3f;
     public float jumpHeight;
@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
         if ( jumped)
         {
             jumped = false;
-            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+            rb.AddForce(Vector3.up.normalized * jumpHeight, ForceMode.Impulse);
         }
        
 

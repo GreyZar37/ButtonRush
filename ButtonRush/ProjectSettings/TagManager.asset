@@ -12,6 +12,8 @@ TagManager:
   - Medium
   - LowerVolume
   - HigherVolume
+  - HigherSens
+  - LowerSens
   layers:
   - Default
   - TransparentFX

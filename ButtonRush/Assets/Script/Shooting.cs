@@ -9,6 +9,8 @@ public class Shooting : MonoBehaviour
     int layerMask = 7;
 
     public ParticleSystem particle;
+    public TextMesh sensIndicator;
+    int sensNumber = 10;
 
     public AudioSource audioSource;
 
@@ -16,8 +18,13 @@ public class Shooting : MonoBehaviour
 
     void Start()
     {
+        sensNumber = PlayerPrefs.GetInt("SenseNumber", 10);
+        PlayerController.mouseSens = PlayerPrefs.GetInt("Sense", 100);
+
         anim = gameObject.GetComponent<Animator>();
         audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
+
+        sensIndicator.text = sensNumber.ToString() + "/10";
     }
 
    
@@ -100,6 +107,37 @@ public class Shooting : MonoBehaviour
                         {
                             Volume.volume = 1;
                         }
+                    }
+
+                    if (hit.transform.gameObject.tag == "LowerSens")
+                    {
+                        hit.transform.gameObject.GetComponent<ParticleSystem>().Play();
+                        hit.transform.gameObject.GetComponent<AudioSource>().Play();
+                        PlayerController.mouseSens -= 10;
+                        sensNumber -= 1;
+                        if (PlayerController.mouseSens <= 10)
+                        {
+                            sensNumber = 1;
+                            PlayerController.mouseSens = 10;
+                        }
+                        sensIndicator.text = sensNumber.ToString() + "/10";
+                        PlayerPrefs.SetInt("SenseNumber", sensNumber);
+                        PlayerPrefs.SetInt("Sense", PlayerController.mouseSens);
+                    }
+                    else if (hit.transform.gameObject.tag == "HigherSens")
+                    {
+                        hit.transform.gameObject.GetComponent<ParticleSystem>().Play();
+                        hit.transform.gameObject.GetComponent<AudioSource>().Play();
+                        PlayerController.mouseSens += 10;
+                        sensNumber += 1;
+                        if(PlayerController.mouseSens >= 100)
+                        {
+                            sensNumber = 10;
+                            PlayerController.mouseSens = 100;
+                        }
+                        sensIndicator.text = sensNumber.ToString() + "/10";
+                        PlayerPrefs.SetInt("SenseNumber", sensNumber);
+                        PlayerPrefs.SetInt("Sense", PlayerController.mouseSens);
                     }
                 }
                

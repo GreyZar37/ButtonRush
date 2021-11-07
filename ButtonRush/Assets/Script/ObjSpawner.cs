@@ -12,7 +12,7 @@ public class ObjSpawner : MonoBehaviour
 
     float xPosition;
     float zPosition;
-    float yPoaition = 20f;
+    float yPoaition = 15f;
 
     int changed;
 
@@ -45,7 +45,7 @@ public class ObjSpawner : MonoBehaviour
         while (gameManager.gameStarted == true)
         {
             randomSpawn = Random.Range(0, tavler.Length);
-            time = Random.Range(2f, 4f);
+            time = Random.Range(1.5f, 3f);
             xPosition = Random.Range(-6, 7);
             zPosition = Random.Range(20, 35);
             Instantiate(tavler[randomSpawn], new Vector3(xPosition, yPoaition, zPosition), Quaternion.identity);
