@@ -18,19 +18,23 @@ public class Shooting : MonoBehaviour
 
     void Start()
     {
+        // Set the mouse sensetivity, based on the saved playerpref 
         sensNumber = PlayerPrefs.GetInt("SenseNumber", 10);
         PlayerController.mouseSens = PlayerPrefs.GetInt("Sense", 100);
 
         anim = gameObject.GetComponent<Animator>();
         audioSource = GameObject.Find("Player").GetComponent<AudioSource>();
 
+        // Changes the sensetivity text based on sensetevity number
         sensIndicator.text = sensNumber.ToString() + "/10";
     }
 
    
     void Update()
     {
-        
+        /* A big chunk of code that shots a raycast, checks what it colided with, and then gets the different components of the gameobjects it colided with.
+         * The code is used play audiosources, particlesystems and give score. It is also used to change mouse sensetivity and volume of the music. 
+         */
             if (Input.GetMouseButtonDown(0))
             {
                 RaycastHit hit;
@@ -151,6 +155,7 @@ public class Shooting : MonoBehaviour
                 
             }
         
+            // Changes the player animation
         if ((anim.GetCurrentAnimatorStateInfo(0).IsName("ShootingAnim") && anim.GetCurrentAnimatorStateInfo(0).normalizedTime > 1))
         {
             anim.SetBool("IsShooting", false);

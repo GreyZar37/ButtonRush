@@ -16,7 +16,8 @@ public class Destroyer : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.transform.parent.gameObject.GetComponent<ScoreToGive>().wrongAnswer == true)
+        //Give score to the ScoreToGive script
+        if (other.transform.parent.gameObject.GetComponent<ScoreToGive>().wrongAnswer == true)
         {
             
             scoreText.addScore(-other.transform.parent.gameObject.GetComponent<ScoreToGive>().scoreToAdd);
@@ -28,7 +29,7 @@ public class Destroyer : MonoBehaviour
             scoreText.addScore(-other.transform.parent.gameObject.GetComponent<ScoreToGive>().scoreToAdd);
         }
 
-
+        //Destroy the "Tavle" that colides with the floor
         Destroy(other.transform.parent.gameObject);
     }
 }

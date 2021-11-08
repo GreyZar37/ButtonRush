@@ -30,7 +30,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        // Locks the curser in the middle of the screen
         Cursor.lockState = CursorLockMode.Locked;
+        // Changes the gravity
         Physics.gravity = new Vector3(0, -24.82F, 0);
     }
     private void Update()
@@ -52,7 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        //Kodedelen hvor spilleren får lov til at rotere sit camera (Rotation)
+        // Code that makes the player rotate the camera
         mouseHorizontal = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
         mouseVertical = Input.GetAxis("Mouse Y") * mouseSens * Time.deltaTime;
 
@@ -66,7 +68,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //Kodedelen hvor spilleren får lov til at gå (Movement)
+        // Movement code, that gives the player ability to walk
         vertical = Input.GetAxisRaw("Vertical");
         horizontal = Input.GetAxisRaw("Horizontal");
         
@@ -79,6 +81,7 @@ public class PlayerController : MonoBehaviour
 
         if ( jumped)
         {
+            // Makes the player jump
             jumped = false;
             rb.AddForce(Vector3.up.normalized * jumpHeight, ForceMode.Impulse);
         }

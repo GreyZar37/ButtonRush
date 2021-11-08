@@ -32,6 +32,7 @@ public class ScoreToGive : MonoBehaviour
 
     private void Awake()
     {
+        // The score is random and gets multiplied by difficulty
         if(gameManager.difficulty == "Easy")
         {
             scoreToAdd = Random.Range(1, 5) * 1;
@@ -42,7 +43,7 @@ public class ScoreToGive : MonoBehaviour
         }
         else if (gameManager.difficulty == "Hard")
         {
-            scoreToAdd = Random.Range(1, 5) * 3;
+            scoreToAdd = Random.Range(2, 5) * 3;
         }
         
         changeMathProblem();
@@ -50,7 +51,7 @@ public class ScoreToGive : MonoBehaviour
 
     void Start()
     {
-        
+        // Get component from the gameobject 
         scoreText = FindObjectOfType<ScoreText>();
         mesh = gameObject.GetComponent<MeshRenderer>();
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -63,6 +64,7 @@ public class ScoreToGive : MonoBehaviour
 
         if(wasHit == true)
         {
+            // Disables the meshrenderer, collider, boarder and text
             mesh.enabled = false;
             gameObject.GetComponent<Collider>().enabled = false;
             boarder.SetActive(false);
@@ -71,9 +73,12 @@ public class ScoreToGive : MonoBehaviour
 
             if (wasPlayed == false)
             {
+                // Enables the particle, audio, and adds score
                 particle.Play();
                 audioSource.Play();
                 scoreText.addScore(scoreToAdd);
+
+                // If the ansewer was wrong, then you lose health
                 if(wrongAnswer == false)
                 {
                     gameManager.health -= 1;
@@ -82,10 +87,10 @@ public class ScoreToGive : MonoBehaviour
                 wasPlayed = true;
 
             }
-            timer -= Time.deltaTime;
-            
            
-
+            // After 0.4 seconds, destroy the gameobjet
+            timer -= Time.deltaTime;
+ 
             if (timer <= 0.4f)
             {
                 Destroy(gameObject);
@@ -96,6 +101,7 @@ public class ScoreToGive : MonoBehaviour
 
     void changeMathProblem()
     {
+        // Changes the mathproblem
         if(wrongAnswer == true)
         {
             if(gameManager.difficulty == "Easy")
@@ -126,6 +132,8 @@ public class ScoreToGive : MonoBehaviour
                 answer = (numberOne * numberTwo) + Random.Range(1, 6);
             }
 
+            //Change the text to the mathproblem on the "Tavle"
+
             textMesh.text = numberOne.ToString() + " * " + 
                 numberTwo.ToString() + " = " + answer.ToString();
         }
@@ -150,7 +158,7 @@ public class ScoreToGive : MonoBehaviour
 
 
 
-
+            //Makes score negative and changes the text to the mathproblem on the "Tavle"
             scoreToAdd = -scoreToAdd;
             answer = (numberOne * numberTwo);
             textMesh.text = numberOne.ToString() + " * " +

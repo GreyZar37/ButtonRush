@@ -25,32 +25,31 @@ public class gameManager : MonoBehaviour
     public bool scoreSet;
     public static int xp;
 
-
-    // Start is called before the first frame update
     void Start()
     {
+       // Gets the data from playerprefs to the variables at the start
        xp = PlayerPrefs.GetInt("Xp", 0);
        grade_ = PlayerPrefs.GetInt("Grade", -3);
        levelNedded_ = PlayerPrefs.GetInt("LevelNedded", 50);
-        highScore_ = PlayerPrefs.GetInt("HighScore", 0);
+       highScore_ = PlayerPrefs.GetInt("HighScore", 0);
 
 
-        difficultyText.text = "Difficulty: " + difficulty;
+       difficultyText.text = "Difficulty: " + difficulty;
        
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Saves the data to playerprefs
         PlayerPrefs.SetInt("Xp", xp);
         PlayerPrefs.SetInt("Grade", grade_);
         PlayerPrefs.SetInt("LevelNedded", levelNedded_);
-
         PlayerPrefs.SetInt("HighScore", highScore_);
 
 
         tavleScoreTracker();
 
+        // Changes the live text
         switch (health)
         {
             case 3:
@@ -74,15 +73,13 @@ public class gameManager : MonoBehaviour
 
         tavler = GameObject.FindGameObjectsWithTag("Tavle");
 
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            xp += 10;
-        }
+       
     }
 
     public void resetGame()
     {
-        
+        // Reset the game, and score
+
         ScoreText.score = 0;
         scoreSet = false;
         GameObject.FindObjectOfType<ScoreText>().text.text = "Score: " + ScoreText.score.ToString();
@@ -99,6 +96,7 @@ public class gameManager : MonoBehaviour
       
         gameStarted = false;
 
+        // Destroy all "Tavler" in the game
         for (int i = 0; i < tavler.Length; i++)
         {
             Destroy(tavler[i]);
@@ -106,6 +104,7 @@ public class gameManager : MonoBehaviour
     }
     public void changeDifficulty()
     {
+        // Changes the difficulty of the game
         difficultyText.text = "Difficulty: " + difficulty;
         if (difficulty == "Hard")
         {
@@ -120,7 +119,7 @@ public class gameManager : MonoBehaviour
 
     void tavleScoreTracker()
     {
-       
+       // Changes level nedded, highscore and xp
 
         switch (grade_)
         {
@@ -205,6 +204,7 @@ public class gameManager : MonoBehaviour
             highScore_ = currentScore_;
         }
 
+        // Changes the text on the main "Tavle"
         grade.text = "Your grade: " + grade_.ToString();
         levelNedded.text = "Next grade: " + xp + "/" + levelNedded_.ToString();
         currentScore.text = "Last score: " + currentScore_.ToString();
