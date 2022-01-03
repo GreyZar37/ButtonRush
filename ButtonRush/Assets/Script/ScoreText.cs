@@ -12,15 +12,19 @@ public class ScoreText : MonoBehaviour
 
     void Start()
     {
+        // Changes the score text in the UI in the start
         text.text = "Score: "+ score.ToString();
     }
 
 
     public void addScore(int scoreToAdd)
     {
+        // Add score to the score variable 
         score += scoreToAdd;
+        // Adds score to xp and current score
         gameManager.currentScore_ += scoreToAdd;
         gameManager.xp += scoreToAdd;
+        // Changes the score text in the UI
         text.text = "Score: " + score.ToString();
     }
 }

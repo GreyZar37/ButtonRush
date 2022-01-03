@@ -55,6 +55,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         // Code that makes the player rotate the camera
+        // The rotation of the camera was inspired by Brackeys video (https://www.youtube.com/watch?v=_QajrabyTJc)
         mouseHorizontal = Input.GetAxis("Mouse X") * mouseSens * Time.deltaTime;
         mouseVertical = Input.GetAxis("Mouse Y") * mouseSens * Time.deltaTime;
 
@@ -62,6 +63,7 @@ public class PlayerController : MonoBehaviour
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+       
         gunAndArm.GetComponent<Transform>().localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         transform.Rotate(Vector3.up * mouseHorizontal);

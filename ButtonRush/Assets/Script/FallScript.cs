@@ -10,6 +10,7 @@ public class FallScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Changes the gravity on difficulty
         if(gameManager.difficulty == "Hard")
         {
             gravity = -2;
@@ -24,6 +25,7 @@ public class FallScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Make the "Tavle" fall
         rb.velocity = new Vector3(0, gravity, 0);
     }
 }

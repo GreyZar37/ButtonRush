@@ -7,6 +7,7 @@ public class Exit : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+        // Quits the game
         Application.Quit();
     }
 }

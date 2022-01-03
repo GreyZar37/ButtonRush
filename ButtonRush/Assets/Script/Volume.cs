@@ -9,18 +9,18 @@ public class Volume : MonoBehaviour
     public TextMesh volumeText;
     public AudioSource audioSource;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Gets the volume float from the playerpref 
         volume = PlayerPrefs.GetFloat("Volume", 0.2f);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        // Changes the music volume
         audioSource.volume = volume;
         volumeText.text = (volume * 10).ToString("F0") + "/10";
+        // Saves the music volume
         PlayerPrefs.SetFloat("Volume", volume);
     }
 

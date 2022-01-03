@@ -16,17 +16,16 @@ public class ObjSpawner : MonoBehaviour
 
     int changed;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Starts the Coroutine(spawnTavle()
         StartCoroutine(spawnTavle());
     }
 
-    // Update is called once per frame
     void Update()
     {
-       
-          if(gameManager.gameStarted == true && changed == 1)
+        // Stops and sarts the Coroutine, if the game is started or not
+        if (gameManager.gameStarted == true && changed == 1)
         {
             StartCoroutine(spawnTavle());
             changed = 0;
@@ -41,7 +40,7 @@ public class ObjSpawner : MonoBehaviour
 
     public IEnumerator spawnTavle()
     {
-       
+        // Instantiat the "Tavler" at random position and random time
         while (gameManager.gameStarted == true)
         {
             randomSpawn = Random.Range(0, tavler.Length);
